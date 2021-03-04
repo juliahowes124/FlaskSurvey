@@ -8,8 +8,6 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
-responses = []
-
 
 @app.route('/')
 def index():
@@ -20,11 +18,16 @@ def index():
 
 @app.route('/begin', methods=["POST"])
 def begin():
+    session["responses"] = []
     return redirect('/questions/0')
 
 
 @app.route('/questions/<int:index>')
 def questions(index):
+    
+    if len(session["responses"]) < index:
+        return redirect(f'/questions/{len(session["responses"])}')
+
     question = survey.questions[index]
 
     return render_template(
@@ -35,7 +38,9 @@ def questions(index):
 
 @app.route('/answer', methods=["POST"])
 def answer():
+    responses = session["responses"]
     responses.append(request.form["answer"])
+    session["responses"] = responses
     index = len(responses)
     if index >= len(survey.questions):
         return redirect('/thankyou')
