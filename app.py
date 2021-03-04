@@ -24,9 +24,12 @@ def begin():
 
 @app.route('/questions/<int:index>')
 def questions(index):
-    
-    if len(session["responses"]) < index:
+    if index != len(session["responses"]):
+        flash('Nice try bro!')
         return redirect(f'/questions/{len(session["responses"])}')
+
+    if index == len(survey.questions):
+        return redirect('/thankyou')
 
     question = survey.questions[index]
 
@@ -42,8 +45,6 @@ def answer():
     responses.append(request.form["answer"])
     session["responses"] = responses
     index = len(responses)
-    if index >= len(survey.questions):
-        return redirect('/thankyou')
     return redirect(f"/questions/{index}")
 
 
