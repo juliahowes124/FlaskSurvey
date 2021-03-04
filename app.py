@@ -16,3 +16,22 @@ def index():
     title = survey.title
     instructions = survey.instructions
     return render_template('survey_start.html', title=title, instructions=instructions)
+
+
+@app.route('/questions/<int:index>')
+def questions(index):
+    question = survey.questions[index]
+
+    return render_template(
+        "question.html",
+        question=question
+    )
+
+@app.route('/answer', methods=["POST"])
+def answer():
+    
+    responses.append(request.form["answer"])
+    index = len(responses)
+    print(responses)
+
+    return redirect(f"/questions/{index}")
