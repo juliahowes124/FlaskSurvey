@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from surveys import satisfaction_survey as survey
+from surveys import surveys 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "never-tell!"
@@ -51,3 +51,13 @@ def answer():
 @app.route('/thankyou')
 def thankyou():
     return render_template('thankyou.html')
+
+@app.route('/surveys')
+def choose_survey():
+
+
+    return render_template(
+        "choose_survey.html",
+        surveys=surveys.keys()
+    )
+
