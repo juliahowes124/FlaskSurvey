@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from surveys import surveys 
+from surveys import surveys
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "never-tell!"
@@ -11,13 +11,15 @@ debug = DebugToolbarExtension(app)
 
 @app.route('/')
 def index():
-    title = survey.title
-    instructions = survey.instructions
-    return render_template('survey_start.html', title=title, instructions=instructions)
+    # title = survey.title
+    # instructions = survey.instructions
+    return render_template("choose_survey.html", surveys=surveys.keys())
+    # return render_template('survey_start.html', title=title, instructions=instructions)
 
 
 @app.route('/begin', methods=["POST"])
 def begin():
+    session["survey"] = request.form['survey']
     session["responses"] = []
     return redirect('/questions/0')
 
@@ -28,10 +30,10 @@ def questions(index):
         flash('Nice try bro!')
         return redirect(f'/questions/{len(session["responses"])}')
 
-    if index == len(survey.questions):
+    if index == len(surveys[session["survey"]].questions):
         return redirect('/thankyou')
 
-    question = survey.questions[index]
+    question = surveys[session["survey"]].questions[index]
 
     return render_template(
         "question.html",
@@ -51,13 +53,3 @@ def answer():
 @app.route('/thankyou')
 def thankyou():
     return render_template('thankyou.html')
-
-@app.route('/surveys')
-def choose_survey():
-
-
-    return render_template(
-        "choose_survey.html",
-        surveys=surveys.keys()
-    )
-
