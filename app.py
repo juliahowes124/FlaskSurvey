@@ -11,17 +11,16 @@ debug = DebugToolbarExtension(app)
 
 @app.route('/')
 def index():
-    # title = survey.title
-    # instructions = survey.instructions
     return render_template("choose_survey.html", surveys=surveys.keys())
-    # return render_template('survey_start.html', title=title, instructions=instructions)
 
 
 @app.route('/begin', methods=["POST"])
 def begin():
     session["survey"] = request.form['survey']
     session["responses"] = []
-    return redirect('/questions/0')
+    title = surveys[session["survey"]].title
+    instructions = surveys[session["survey"]].instructions
+    return render_template("survey_start.html", title=title, instructions=instructions)
 
 
 @app.route('/questions/<int:index>')
