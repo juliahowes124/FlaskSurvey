@@ -21,6 +21,9 @@
         {{choice}}
       </p>
       {% endfor %}
+      {% if question.allow_text %}
+      <textarea name="comment" rows="3" placeholder="comment (optional)"></textarea>
+      {% endif %}
 
     <button>Continue</button>
   </form>

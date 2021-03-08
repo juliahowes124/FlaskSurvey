@@ -8,7 +8,6 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
-
 @app.route('/')
 def index():
     return render_template("choose_survey.html", surveys=surveys.keys())
@@ -43,8 +42,12 @@ def questions(index):
 @app.route('/answer', methods=["POST"])
 def answer():
     responses = session["responses"]
-    responses.append(request.form["answer"])
+    if request.form.get("comment"):
+        responses.append((request.form["answer"], request.form["comment"]))
+    else:
+        responses.append((request.form["answer"],))
     session["responses"] = responses
+    print(session["responses"])
     index = len(responses)
     return redirect(f"/questions/{index}")
 
