@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
+{% block title %}
+  <h1>Thank You! Here Were Your Answers:</h1>
+{% endblock %}
 {% block content %}
-
-  <h1>Thank You! Bye!</h1>
-
+<ul>
+  {% for answer in answers %}
+    <li>
+      <strong>{{answer[0]}}</strong>
+      <span>{{answer[1]}} <em>{{answer[2]}}</em></span>
+    </li>
+  {% endfor %}
+</ul>
+  
 {% endblock %}

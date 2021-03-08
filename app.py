@@ -42,16 +42,17 @@ def questions(index):
 @app.route('/answer', methods=["POST"])
 def answer():
     responses = session["responses"]
+    question = surveys[session["survey"]].questions[len(responses)].question
     if request.form.get("comment"):
-        responses.append((request.form["answer"], request.form["comment"]))
+        responses.append((question, request.form["answer"], request.form["comment"]))
     else:
-        responses.append((request.form["answer"],))
+        responses.append((question, request.form["answer"]))
     session["responses"] = responses
-    print(session["responses"])
     index = len(responses)
     return redirect(f"/questions/{index}")
 
 
 @app.route('/thankyou')
 def thankyou():
-    return render_template('thankyou.html')
+    answers = session["responses"]
+    return render_template('thankyou.html', answers=answers)
