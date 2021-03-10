@@ -10,8 +10,6 @@
   
 
   <form action="/answer" method="POST">
-
-      <!-- you should have one item like this for every choice -->
       {% for choice in question.choices %}
       <p>
         <input
@@ -25,9 +23,18 @@
       <textarea name="comment" rows="3" placeholder="comment (optional)"></textarea>
       {% endif %}
 
-    <button>Continue</button>
-  </form>
-
+      {% if display_back %}
+      <a class="btn btn-secondary" href="/back">Back</a>
+      {% endif %}
+      {% if display_next %}
+      <button class="btn btn-primary">Next</button>
+      {% endif %}
+      {% if display_finish %}
+      <button class="btn btn-success">Finish</button>
+      {% endif %}
+    </form>
+    
+    
   {% for msg in get_flashed_messages() %}
   <p>{{msg}}</p>
   {% endfor %}

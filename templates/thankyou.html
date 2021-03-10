@@ -3,17 +3,26 @@
   <h1>Thank You! Here Were Your Answers:</h1>
 {% endblock %}
 {% block content %}
-<ul>
+<ol>
   {% for response in responses %}
     <li>
       <strong>{{response["question"]}}</strong>
-      <span>{{response["answer"]}} 
+      <span>
+        {% if not response["answer"] == None %}
+        {{response["answer"]}} 
+        {% endif %}
         {% if not response["comment"] == None %}
         <em>{{response["comment"]}}</em>
         {% endif %}
       </span>
     </li>
   {% endfor %}
-</ul>
+</ol>
+
+<a class="btn btn-primary" href="/">Home</a>
+
+{% for msg in get_flashed_messages() %}
+  <p>{{msg}}</p>
+  {% endfor %}
   
 {% endblock %}
