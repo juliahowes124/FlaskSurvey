@@ -4,10 +4,14 @@
 {% endblock %}
 {% block content %}
 <ul>
-  {% for answer in answers %}
+  {% for response in responses %}
     <li>
-      <strong>{{answer[0]}}</strong>
-      <span>{{answer[1]}} <em>{{answer[2]}}</em></span>
+      <strong>{{response["question"]}}</strong>
+      <span>{{response["answer"]}} 
+        {% if not response["comment"] == None %}
+        <em>{{response["comment"]}}</em>
+        {% endif %}
+      </span>
     </li>
   {% endfor %}
 </ul>

@@ -43,10 +43,11 @@ def questions(index):
 def answer():
     responses = session["responses"]
     question = surveys[session["survey"]].questions[len(responses)].question
-    if request.form.get("comment"):
-        responses.append((question, request.form["answer"], request.form["comment"]))
-    else:
-        responses.append((question, request.form["answer"]))
+    responses.append({
+        "question": question,
+        "answer": request.form["answer"],
+        "comment": request.form.get("comment")
+    })
     session["responses"] = responses
     index = len(responses)
     return redirect(f"/questions/{index}")
@@ -54,5 +55,5 @@ def answer():
 
 @app.route('/thankyou')
 def thankyou():
-    answers = session["responses"]
-    return render_template('thankyou.html', answers=answers)
+    responses = session["responses"]
+    return render_template('thankyou.html', responses=responses)
