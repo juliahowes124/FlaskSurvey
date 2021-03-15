@@ -11,7 +11,6 @@ debug = DebugToolbarExtension(app)
 
 """
 TODO:
--pre-fill form with previous answer, if any
 -thank you page, show question with strikethrough if skipped
 -clean up code
 -styling
@@ -41,21 +40,26 @@ def begin():
 
 @app.route('/questions/<int:index>')
 def questions(index):
+    print(session["responses"])
     if not session["in_survey"]:
         flash("The survey is over")
         return redirect('/thankyou')
 
     questions = surveys[session["survey"]].questions
-    if index > len(questions)-1:
+    responses = session["responses"]
+    if index > len(responses)-1:
         flash('Nice try')
         return redirect(f'/questions/{session["current_index"]}')
 
     return render_template(
         "question.html",
-        question=questions[index],
+        question=responses[index]["question"],
+        choices=questions[index].choices,
+        allow_text=questions[index].allow_text,
+        current_answer=responses[index].get("answer"),
         display_back=index > 0,
-        display_next=index < len(questions)-1,
-        display_finish=index == len(questions)-1
+        display_next=index < len(responses)-1,
+        display_finish=index == len(responses)-1
     )
 
 
