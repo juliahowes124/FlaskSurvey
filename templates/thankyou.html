@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}
+{% block header %}
   <h1>Thank You! Here Were Your Answers:</h1>
 {% endblock %}
 {% block content %}
 <ol>
   {% for response in responses %}
     <li>
+      {% if not response["answer"] == None %}
       <strong>{{response["question"]}}</strong>
+      {% endif %}
+      {% if response["answer"] == None %}
+      <strike>{{response["question"]}}</strike>
+      {% endif %}
       <span>
         {% if not response["answer"] == None %}
         {{response["answer"]}} 
@@ -22,7 +27,7 @@
 <a class="btn btn-primary" href="/">Home</a>
 
 {% for msg in get_flashed_messages() %}
-  <p>{{msg}}</p>
-  {% endfor %}
+  <div class="alert alert-danger w-50 mt-2">{{msg}}</div>
+{% endfor %}
   
 {% endblock %}

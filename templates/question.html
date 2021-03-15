@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}
+{% block header %}
 {{ question }}
 
 {% endblock %}
@@ -21,7 +21,7 @@
       </p>
       {% endfor %}
       {% if allow_text %}
-      <textarea name="comment" rows="3" placeholder="comment (optional)"></textarea>
+      <textarea name="comment" rows="2" placeholder="comment (optional)"></textarea><br>
       {% endif %}
 
       {% if display_back %}
@@ -37,7 +37,7 @@
     
     
   {% for msg in get_flashed_messages() %}
-  <p>{{msg}}</p>
+    <div class="alert alert-danger mt-3 w-25">{{msg}}</div>
   {% endfor %}
 
 {% endblock %}

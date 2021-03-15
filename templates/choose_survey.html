@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Choose your survey
+{% block header %}
+Choose a Survey to Start!
 {% endblock %}
 {% block content %}
 
 
 <form action="/begin" method="POST">
-    <select name="survey" id="" onchange="this.form.submit()">
-        <option value="">Choose a survey</option>
+    <select class="form-select p-2" aria-label="Select Survey" name="survey" onchange="this.form.submit()">
+        <option value=""> -- Choose survey -- </option>
         {% for key in surveys %}
         <option value="{{key}}">{{key}}</option>
         {% endfor %}

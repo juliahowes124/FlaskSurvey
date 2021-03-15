@@ -48,7 +48,23 @@ personality_quiz = Survey(
     ]
 )
 
+cookie_quiz = Survey(
+    "Cookie Quiz",
+    "Lets see what you know about cookies!",
+    [
+        Question("What is the best food?", ["Cookie", "I'm wrong"]),
+        Question("Do you ever dream about cookies?"),
+        Question("Do you want to skip this question?"),
+        Question("On average, how many cookies do you consume per month?",
+                 ["Less than 5,000", "Over 5,000"]),
+        Question("What type of cookie is best, and why?",
+                 ["Chocolate Chip", "Snickerdoodle", "Oatmeal Raisin"],
+                 allow_text=True),
+    ]
+)
+
 surveys = {
     "satisfaction": satisfaction_survey,
     "personality": personality_quiz,
+    "cookie": cookie_quiz
 }

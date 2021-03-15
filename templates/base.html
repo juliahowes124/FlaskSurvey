@@ -4,15 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link
+  href="https://bootswatch.com/4/journal/bootstrap.css"
+  rel="stylesheet">
   <title>Flask Survey</title>
 </head>
 <body>
 
-<h1> {% block title %} {% endblock %} </h1>
+  <div class="container">
+    <div class="row vh-100">
+      <div class="my-auto">
+        <div class="col">
+          <h1> {% block header %} {% endblock %} </h1>
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+  </div>
+</div>
 
-{% block content %}
-{% endblock %}
 
 
 

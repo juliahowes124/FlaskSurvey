@@ -11,13 +11,9 @@ debug = DebugToolbarExtension(app)
 
 """
 TODO:
--thank you page, show question with strikethrough if skipped
 -clean up code
--styling
-"We don’t want users to submit a survey more than once.
-Of course, you could put something in the session that says they’ve completed that
-survey, and check for that, but the cookies that support the session typically only
-last as long as the browser is running — a user who quits their browser could re-answer
+-auto populate comments if available
+"a user who quits their browser could re-answer
 the survey. Figure out a way you could prevent a site visitor from re-filling-out
 a survey using cookies."
 
@@ -42,13 +38,13 @@ def begin():
 def questions(index):
     print(session["responses"])
     if not session["in_survey"]:
-        flash("The survey is over")
+        flash("The survey is over!")
         return redirect('/thankyou')
 
     questions = surveys[session["survey"]].questions
     responses = session["responses"]
     if index > len(responses)-1:
-        flash('Nice try')
+        flash('Nice try!')
         return redirect(f'/questions/{session["current_index"]}')
 
     return render_template(
