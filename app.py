@@ -9,15 +9,6 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
 
-"""
-TODO:
--clean up code
--auto populate comments if available
-"a user who quits their browser could re-answer
-the survey. Figure out a way you could prevent a site visitor from re-filling-out
-a survey using cookies."
-
-"""
 @app.route('/')
 def index():
     return render_template("choose_survey.html", surveys=surveys.keys())
@@ -25,6 +16,7 @@ def index():
 
 @app.route('/begin', methods=["POST"])
 def begin():
+    #store survey and responses in same place? storing too much in session?
     session["survey"] = request.form['survey']
     session["responses"] = [{"question": question.question} for question in surveys[session["survey"]].questions]
     session["current_index"] = 0
@@ -36,7 +28,6 @@ def begin():
 
 @app.route('/questions/<int:index>')
 def questions(index):
-    print(session["responses"])
     if not session["in_survey"]:
         flash("The survey is over!")
         return redirect('/thankyou')
