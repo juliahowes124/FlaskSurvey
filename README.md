@@ -1,5 +1,6 @@
 # Flask Survey
 [Rithm School](https://www.rithmschool.com/) Project
+- Rithm provided the code's Question and Survey classes
 
 ## Tools
 
